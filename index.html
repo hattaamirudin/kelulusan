@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PENGUMUMAN KELULUSAN SD ISLAM SUKOREJO</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0088ff, #ffffff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .container {
+      background: linear-gradient(to bottom,#008f96, #ffffff);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        color: #11007d;
+      text-align: center;
+    }
+    p {
+        font-family: 'Times New Roman', Times, serif;
+        color: #ffffff;
+        text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.80rem;
+      margin: 0.4rem 0;
+      border-radius: 7px;
+      border: 1px solid #ffffff;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .result {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background-color: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .result p {
+      margin: 0.5rem 0;
+    }
+
+    .success {
+      color: green;
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+
+      .result, .result * {
+        visibility: visible;
+      }
+
+      .result {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+
+      button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>PENGUMUMAN KELULUSAN</h1>
+    <p>SD ISLAM SUKOREJO<br>Jalan Manggar No 43, Kota Blitar</p>
+
+    <input type="text" id="nama" placeholder="Masukkan Nama Lengkap" />
+    <input type="text" id="nisn" placeholder="Masukkan NISN" />
+    <button onclick="cekKelulusan()">Lihat Hasil</button>
+
+    <button id="printButton" style="display:none;" onclick="window.print()">Cetak Hasil</button>
+  </div>
+
+  <script>
+    const dataSiswa = [
+      { nama: "AHMAD YUNUS FATAHILLAH", nisn: "0139797023", nilai: 89.3, status: "LULUS" },
+      { nama: "ARYASATYA PRATIYODHA", nisn: "0124441967", nilai: 91.3, status: "LULUS" },
+      { nama: "BARUNA SULAIMAN DARYONI", nisn: "3130265392", nilai: 87.1, status: "LULUS" },
+      { nama: "BIMA PRADIPTA MALVELINO", nisn: "0121571192", nilai: 85.3, status: "LULUS" },
+      { nama: "CALLISTA ALVARETA", nisn: "0123408044", nilai: 88.3, status: "LULUS" },
+      { nama: "Florencia Chelsea Ozora", nisn: "0131988094", nilai: 93.5, status: "LULUS" },
+      { nama: "GAVANO SAPUTRA WARDHANA", nisn: "0105853525", nilai: 79.1, status: "LULUS" },
+      { nama: "HEYDAN DZEKO ARRADDIN", nisn: "0125044275", nilai: 88.0, status: "LULUS" },
+      { nama: "Ilma Nafi'a", nisn: "3125689539", nilai: 95.6, status: "LULUS" },
+      { nama: "Justin Abrissam Aghnia'", nisn: "0125021836", nilai: 87.9, status: "LULUS" },
+      { nama: "Khaila Anastasya Zulqori'ah", nisn: "3129401390", nilai: 87.8, status: "LULUS" },
+      { nama: "LEANDRA PRATAMA PUTRA HANDRIANTO", nisn: "0123650828", nilai: 85.7, status: "LULUS" },
+      { nama: "Machiko Aprillio Hideaki", nisn: "0125882442", nilai: 87.7, status: "LULUS" },
+      { nama: "MOHAMAD ALI FADLI", nisn: "0114016686", nilai: 90.5, status: "LULUS" },
+      { nama: "MOHAMAD VALDIS KAMIL ABDILAH", nisn: "0128081579", nilai: 88.5, status: "LULUS" },
+      { nama: "NADEZHA VALENCIA INTAN KIRAMA", nisn: "0128405539", nilai: 91.3, status: "LULUS" },
+      { nama: "NADYA ASWA GANIA HAFIDZ", nisn: "0121292692", nilai: 84.4, status: "LULUS" },
+      { nama: "QISYA NUR HUMAIRA", nisn: "0134861980", nilai: 84.4, status: "LULUS" },
+      { nama: "RADHIT JOAN SYAFI'I RIZQULLOH", nisn: "0128204615", nilai: 95.2, status: "LULUS" },
+      { nama: "Rizki Eka Ramadhan", nisn: "0129546590", nilai: 90.2, status: "LULUS" },
+      { nama: "RIZMA AMANI KAMIL", nisn: "0128811804", nilai: 93.5, status: "LULUS" },
+      { nama: "ROHENY WAHYUNINGSIH", nisn: "0133121294", nilai: 89.0, status: "LULUS" },
+      { nama: "SASKIA ANASTASYA TAUFIK", nisn: "0125482259", nilai: 88.3, status: "LULUS" },
+      { nama: "SURYA AGUNG LAKSMANA", nisn: "0122075621", nilai: 79.8, status: "LULUS" },
+      { nama: "ZAHRA APRILIA NUR FAIQOH", nisn: "0129494684", nilai: 87.8, status: "LULUS" },
+      { nama: "Zekov Fadeaz", nisn: "0123690607", nilai: 87.8, status: "LULUS" }
+    ];
+
+    function cekKelulusan() {
+      const namaInput = document.getElementById("nama").value.trim().toLowerCase();
+      const nisnInput = document.getElementById("nisn").value.trim();
+      const outputDiv = document.getElementById("output");
+      const printButton = document.getElementById("printButton");
+
+      const siswa = dataSiswa.find(s => s.nama.toLowerCase() === namaInput && s.nisn === nisnInput);
+
+      if (siswa) {
+        outputDiv.innerHTML = `
+          <p><strong>Nama:</strong> ${siswa.nama}</p>
+          <p><strong>NISN:</strong> ${siswa.nisn}</p>
+          <p><strong>Rata-rata Nilai:</strong> ${siswa.nilai}</p>
+          <p class="success"><strong>Hasil:</strong> ${siswa.status}</p>
+        `;
+        printButton.style.display = 'block';
+      } else {
+        outputDiv.innerHTML = `<p class="error">Data tidak ditemukan. Periksa kembali Nama dan NISN.</p>`;
+        printButton.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
